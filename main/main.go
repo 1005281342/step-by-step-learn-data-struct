@@ -2,14 +2,28 @@ package main
 
 import (
 	"fmt"
-	"github.com/1005281342/step-by-step-learn-data-struct/HashMap"
+	"github.com/1005281342/step-by-step-learn-data-struct/BinarySearchTree"
 )
 
 func main() {
-	ln := HashMap.NewLinkNode()
-	ln.Value = 10
-	elem := HashMap.LinkNode{20, nil}
-	ln = HashMap.AppendLeft(*ln, elem)
-	fmt.Printf("%+v", elem)
-	fmt.Printf("%+v", ln)
+
+	// Test BinarySearchTree
+	node := BinarySearchTree.NewNode(10)
+	node = BinarySearchTree.Add(node, 101)
+	node = BinarySearchTree.Add(node, 1)
+	node = BinarySearchTree.Add(node, 1011)
+
+	fmt.Println(BinarySearchTree.Contains(node, 1))
+	fmt.Println(BinarySearchTree.Contains(node, 11))
+
+	//BinarySearchTree.PreOrder(node)
+	//BinarySearchTree.PreOrderNR(node)
+
+	BinarySearchTree.LevelOrder(node)
+	//ln := HashMap.NewLinkNode()
+	//ln.Value = 10
+	//elem := HashMap.LinkNode{20, nil}
+	//ln = HashMap.AppendLeft(*ln, elem)
+	//fmt.Printf("%+v", elem)
+	//fmt.Printf("%+v", ln)
 }
