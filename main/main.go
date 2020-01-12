@@ -19,7 +19,7 @@ func main() {
 	//BinarySearchTree.PreOrder(node)
 	//BinarySearchTree.PreOrderNR(node)
 
-	BinarySearchTree.LevelOrder(node)
+	//BinarySearchTree.LevelOrder(node)
 	//ln := HashMap.NewLinkNode()
 	//ln.Value = 10
 	//elem := HashMap.LinkNode{20, nil}
