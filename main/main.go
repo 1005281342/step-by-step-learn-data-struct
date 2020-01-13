@@ -9,6 +9,8 @@ func main() {
 
 	// Test BinarySearchTree
 	node := BinarySearchTree.NewNode(10)
+	node = BinarySearchTree.Add(node, 9)
+	node = BinarySearchTree.Add(node, 12)
 	node = BinarySearchTree.Add(node, 101)
 	node = BinarySearchTree.Add(node, 1)
 	node = BinarySearchTree.Add(node, 1011)
@@ -19,7 +21,8 @@ func main() {
 	//BinarySearchTree.PreOrder(node)
 	//BinarySearchTree.PreOrderNR(node)
 
-	//BinarySearchTree.LevelOrder(node)
+	BinarySearchTree.LevelOrder(node)
+	BinarySearchTree.InOrder(node)
 	//ln := HashMap.NewLinkNode()
 	//ln.Value = 10
 	//elem := HashMap.LinkNode{20, nil}

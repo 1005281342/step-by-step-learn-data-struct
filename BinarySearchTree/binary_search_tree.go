@@ -2,6 +2,7 @@ package BinarySearchTree
 
 import (
 	"fmt"
+	"github.com/1005281342/step-by-step-learn-data-struct/QueueLinkedList"
 	"github.com/1005281342/step-by-step-learn-data-struct/Stack"
 )
 
@@ -84,9 +85,9 @@ func InOrder(node *TreeNode) {
 	if node == nil {
 		return
 	}
-	PreOrder(node.left)
+	InOrder(node.left)
 	fmt.Println(node.value)
-	PreOrder(node.right)
+	InOrder(node.right)
 }
 
 // 后序遍历 -递归版
@@ -94,28 +95,29 @@ func PostOrder(node *TreeNode) {
 	if node == nil {
 		return
 	}
-	PreOrder(node.left)
-	PreOrder(node.right)
+	PostOrder(node.left)
+	PostOrder(node.right)
 	fmt.Println(node.value)
 }
 
 // 中序遍历	//TODO 该优先队列还需要研究下
-//func LevelOrder(node *TreeNode) {
-//	if node == nil {
-//		return
-//	}
-//	c := 0
-//	pq := PriorityQueue.NewPriorityQueue(100)
-//	pq.Push(PriorityQueue.NewItem(node, c))
-//	for pq.Len() > 0 {
-//		cur := pq.Pop().(*PriorityQueue.Item).Value.(*TreeNode)
-//		fmt.Println(cur.value)
-//		c += 1
-//		if cur.left != nil {
-//			pq.Push(PriorityQueue.NewItem(cur.left, c))
-//		}
-//		if cur.right != nil {
-//			pq.Push(PriorityQueue.NewItem(cur.right, c))
-//		}
-//	}
-//}
+func LevelOrder(node *TreeNode) {
+	if node == nil {
+		return
+	}
+	c := 1
+	q := new(QueueLinkedList.Queue)
+	q.Enqueue(node)
+	for !q.IsEmpty() {
+		v, _ := q.Dequeue()
+		cur := v.(*TreeNode)
+		fmt.Println(cur.value)
+		c += 1
+		if cur.left != nil {
+			q.Enqueue(cur.left)
+		}
+		if cur.right != nil {
+			q.Enqueue(cur.right)
+		}
+	}
+}
