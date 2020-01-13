@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/1005281342/step-by-step-learn-data-struct/BinarySearchTree"
 )
 
@@ -38,4 +39,8 @@ func main() {
 
 	nNode = BinarySearchTree.Remove(node, 101)
 	BinarySearchTree.InOrder(node)
+
+	ans := make([]int, 0)
+	BinarySearchTree.InOrderAns(node, &ans)
+	fmt.Println(ans)
 }
