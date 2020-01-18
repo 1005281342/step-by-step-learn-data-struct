@@ -5,22 +5,25 @@ import (
 	"github.com/1005281342/step-by-step-learn-data-struct/math"
 )
 
+/*
+AVLTree 每个节点的左右子树的高度差的绝对值不超过1
+*/
 type AVLTree interface {
 	IsBST() bool                                          // 判断该二叉树是否为二叉树
 	IsBalanced(node *BinarySearchTree.TreeNode) bool      // 判断该二叉树是否为一颗平衡二叉树
 	GetHeight(node *BinarySearchTree.TreeNode) int        // 获取节点node的高度
 	GetBalanceFactor(node *BinarySearchTree.TreeNode) int // 获取节点node的平衡因子
 
-	MiniNumNode(node *BinarySearchTree.TreeNode) *BinarySearchTree.TreeNode       // 查找最小元素所在节点
-	MaxiNumNode(node *BinarySearchTree.TreeNode) *BinarySearchTree.TreeNode       // 查找最大元素所在节点
-	ElemNode(node *BinarySearchTree.TreeNode, val int) *BinarySearchTree.TreeNode // 查找元素所在节点
+	MiniNumNode() *BinarySearchTree.TreeNode     // 查找最小元素所在节点
+	MaxiNumNode() *BinarySearchTree.TreeNode     // 查找最大元素所在节点
+	ElemNode(val int) *BinarySearchTree.TreeNode // 查找元素所在节点
 
 	RightRotate(node *BinarySearchTree.TreeNode) *BinarySearchTree.TreeNode // 右旋
 	LeftRotate(node *BinarySearchTree.TreeNode) *BinarySearchTree.TreeNode  // 左旋
 	ReBalance(node *BinarySearchTree.TreeNode) *BinarySearchTree.TreeNode   // 再平衡
 
-	Add(node *BinarySearchTree.TreeNode, val int) *BinarySearchTree.TreeNode    // 添加元素
-	Remove(node *BinarySearchTree.TreeNode, val int) *BinarySearchTree.TreeNode // 移除元素
+	Add(val int) *BinarySearchTree.TreeNode    // 添加元素
+	Remove(val int) *BinarySearchTree.TreeNode // 移除元素
 }
 
 type AVLNode struct {
@@ -39,7 +42,7 @@ func (a *AVLNode) GetHeight(node *BinarySearchTree.TreeNode) int {
 }
 
 func (a *AVLNode) GetBalanceFactor(node *BinarySearchTree.TreeNode) int {
-	if node == nil {
+	if a.TreeNode == nil {
 		return 0
 	}
 	return a.GetHeight(a.TreeNode.Left) - a.GetHeight(a.TreeNode.Right)
@@ -70,23 +73,24 @@ func (a *AVLNode) IsBST() bool {
 	return true
 }
 
-func (a *AVLNode) MiniNumNode(node *BinarySearchTree.TreeNode) *BinarySearchTree.TreeNode {
-	return BinarySearchTree.MiniNumNode(node)
+func (a *AVLNode) MiniNumNode() *BinarySearchTree.TreeNode {
+	return BinarySearchTree.MiniNumNode(a.TreeNode)
 }
 
-func (a *AVLNode) MaxiNumNode(node *BinarySearchTree.TreeNode) *BinarySearchTree.TreeNode {
-	return BinarySearchTree.MaxiNumNode(node)
+func (a *AVLNode) MaxiNumNode() *BinarySearchTree.TreeNode {
+	return BinarySearchTree.MaxiNumNode(a.TreeNode)
 }
 
-func (a *AVLNode) ElemNode(node *BinarySearchTree.TreeNode, val int) *BinarySearchTree.TreeNode {
+func (a *AVLNode) ElemNode(val int) *BinarySearchTree.TreeNode {
+	node := a.TreeNode
 	if node == nil {
 		return nil
 	}
 	if val < node.Value { // 在左边
-		return a.ElemNode(node.Left, val)
+		return a.ElemNode(val)
 	}
 	if val > node.Value {
-		return a.ElemNode(node.Right, val) // 右边
+		return a.ElemNode(val) // 右边
 	}
 	return node // val == node.Value
 }
@@ -157,12 +161,12 @@ func (a *AVLNode) ReBalance(node *BinarySearchTree.TreeNode) *BinarySearchTree.T
 	return node
 }
 
-func (a *AVLNode) Add(node *BinarySearchTree.TreeNode, val int) *BinarySearchTree.TreeNode {
-	node = BinarySearchTree.Add(node, val)
+func (a *AVLNode) Add(val int) *BinarySearchTree.TreeNode {
+	node := BinarySearchTree.Add(a.TreeNode, val)
 	return a.ReBalance(node)
 }
 
-func (a *AVLNode) Remove(node *BinarySearchTree.TreeNode, val int) *BinarySearchTree.TreeNode {
-	node = BinarySearchTree.Remove(node, val)
+func (a *AVLNode) Remove(val int) *BinarySearchTree.TreeNode {
+	node := BinarySearchTree.Remove(a.TreeNode, val)
 	return a.ReBalance(node)
 }

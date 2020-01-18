@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/1005281342/step-by-step-learn-data-struct/QueueLinkedList"
 	"github.com/1005281342/step-by-step-learn-data-struct/Stack"
+	"github.com/1005281342/step-by-step-learn-data-struct/math"
 )
 
 type TreeNode struct {
@@ -32,7 +33,16 @@ func Add(node *TreeNode, val int) *TreeNode {
 	} else if val > node.Value { // 值大于该节点, 在右边插入
 		node.Right = Add(node.Right, val)
 	}
+	// 更新height
+	node.Height = 1 + math.Max(GetNodeHeight(node.Left), GetNodeHeight(node.Right))
 	return node
+}
+
+func GetNodeHeight(node *TreeNode) int {
+	if node == nil {
+		return 0
+	}
+	return node.Height
 }
 
 // 在树中查找元素
@@ -212,6 +222,11 @@ func Remove(node *TreeNode, val int) *TreeNode {
 	if node == nil {
 		return nil
 	}
+
+	defer func() {
+		// 更新高度
+		node.Height = 1 + math.Max(GetNodeHeight(node.Left), GetNodeHeight(node.Right))
+	}()
 
 	if val < node.Value {
 		node.Left = Remove(node.Left, val)
