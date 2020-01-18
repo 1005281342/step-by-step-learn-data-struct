@@ -163,10 +163,16 @@ func (a *AVLNode) ReBalance(node *BinarySearchTree.TreeNode) *BinarySearchTree.T
 
 func (a *AVLNode) Add(val int) *BinarySearchTree.TreeNode {
 	node := BinarySearchTree.Add(a.TreeNode, val)
+	if node == nil {
+		return nil
+	}
 	return a.ReBalance(node)
 }
 
 func (a *AVLNode) Remove(val int) *BinarySearchTree.TreeNode {
 	node := BinarySearchTree.Remove(a.TreeNode, val)
+	if node == nil {
+		return nil
+	}
 	return a.ReBalance(node)
 }
